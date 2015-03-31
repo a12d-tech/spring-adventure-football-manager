@@ -2,13 +2,18 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Football Manager - Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+	<div>
+		<h1>
+			Welcome to Football Manager App
+		</h1>
+		<p>
+			Here you can build your dream team.
+		</p>
+	</div>
+
 </body>
 </html>
