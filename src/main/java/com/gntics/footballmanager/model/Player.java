@@ -2,6 +2,9 @@ package com.gntics.footballmanager.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -11,6 +14,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "player")
 public class Player {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	@Column(name = "first_name")
 	@NotEmpty
@@ -33,6 +40,13 @@ public class Player {
     private Team team;
 
 	// Getters and Setters
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getFirstname() {
 		return firstname;
 	}

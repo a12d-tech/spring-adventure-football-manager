@@ -5,6 +5,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,6 +18,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "team")
 public class Team {
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+	
 	@Column(name = "name")
 	@NotEmpty
 	private String name;
@@ -24,6 +31,14 @@ public class Team {
 	
 	
 	// Getters and Setters
+	public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
 	public String getName() {
 		return name;
 	}
@@ -40,5 +55,8 @@ public class Team {
 		this.players = players;
 	}
 	
+	public boolean isNew() {
+        return (this.id == null);
+    }
 
 }
