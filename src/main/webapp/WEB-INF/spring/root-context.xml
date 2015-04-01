@@ -56,4 +56,9 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+	<!-- Register the messages.properties -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	    <property name="basename" value="/WEB-INF/messages/messages" />
+	</bean>
+
 </beans>
