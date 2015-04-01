@@ -1,10 +1,12 @@
 package com.gntics.footballmanager.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,9 +28,22 @@ public class Team {
 	@NotEmpty
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "team", fetch = FetchType.EAGER)
 	private Set<Player> players;
 	
+	// Methods
+	public void addPlayer(Player player){
+		Set<Player> players = getPlayers();
+		players.add(player);
+		player.setTeam(this);
+	}
+	
+	// Constructor
+	public Team() { }
+	
+	public Team(String name) {
+		this.name = name;
+	}
 	
 	// Getters and Setters
 	public void setId(Integer id) {
@@ -48,7 +63,10 @@ public class Team {
 	}
 
 	public Set<Player> getPlayers() {
-		return players;
+		if (this.players == null) {
+            this.players = new HashSet<Player>();
+        }
+        return this.players;
 	}
 
 	public void setPlayers(Set<Player> players) {
