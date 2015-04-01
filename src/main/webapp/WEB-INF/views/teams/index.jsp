@@ -17,7 +17,11 @@
 	<ul>
 		<c:if test="${!empty teams}">
 			<c:forEach var="team" items="${teams}">
-	    		<li><c:out value="${team.name}"/></li>
+	    		<li>
+	    			<a href="<spring:url value='/teams/${team.id}' htmlEscape='true' />">
+	    				${team.name}
+	    			</a>
+	    		</li>
 	    	</c:forEach>
 	   	</c:if>
 	   	

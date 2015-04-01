@@ -1,5 +1,7 @@
 package com.gntics.footballmanager.web;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,16 @@ public class HomeController {
 	}
 	
 	private void initDbWithSomeData(){
+		
+		Collection<Team> teams = footballManagerService.findAllTeams();
+		
+		if (teams.isEmpty()) {
+			populateDb();
+		}
+
+	}
+	
+	private void populateDb(){
 		Team team1 = new Team();
 		team1.setName("Paris Saint Germain");
 		footballManagerService.saveTeam(team1);
