@@ -9,10 +9,15 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
- 	<!-- enables scanning for @Transactional annotations -->
- 	<tx:annotation-driven />
- 	
+	<!-- enables scanning for Spring @Autowired, @Required,
+		 and JPA's @PersistenceContext and @PersistenceUnit annotations -->
  	<context:annotation-config />
+
+ 	<!-- enables scanning for @Transactional annotations -->
+ 	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<context:component-scan base-package="com.gntics.footballmanager.service" />
+	<context:component-scan base-package="com.gntics.footballmanager.dao" />
  
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -30,8 +35,7 @@
         </property>
     </bean>
  
-    <bean id="em"
-        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="em" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="persistenceUnitName" value="footballmanager" />
        	<property name="jpaVendorAdapter">
@@ -46,11 +50,10 @@
             </props>
         </property>
     </bean>
-    
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="em" />
+        <property name="dataSource" ref="dataSource" />
     </bean>
 
 </beans>
