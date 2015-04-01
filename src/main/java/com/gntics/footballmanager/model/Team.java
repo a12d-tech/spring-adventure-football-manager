@@ -20,61 +20,61 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "team")
 public class Team {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-	
-	@Column(name = "name")
-	@NotEmpty
-	private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "team", fetch = FetchType.EAGER)
-	private Set<Player> players;
-	
-	// Methods
-	public void addPlayer(Player player){
-		Set<Player> players = getPlayers();
-		players.add(player);
-		player.setTeam(this);
-	}
-	
-	// Constructor
-	public Team() { }
-	
-	public Team(String name) {
-		this.name = name;
-	}
-	
-	// Getters and Setters
-	public void setId(Integer id) {
-        this.id = id;
+  @Column(name = "name")
+  @NotEmpty
+  private String name;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "team", fetch = FetchType.EAGER)
+  private Set<Player> players;
+
+  // Methods
+  public void addPlayer(Player player){
+    Set<Player> players = getPlayers();
+    players.add(player);
+    player.setTeam(this);
+  }
+
+  // Constructor
+  public Team() { }
+
+  public Team(String name) {
+    this.name = name;
+  }
+
+  // Getters and Setters
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Set<Player> getPlayers() {
+    if (this.players == null) {
+      this.players = new HashSet<Player>();
     }
+    return this.players;
+  }
 
-    public Integer getId() {
-        return id;
-    }
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<Player> getPlayers() {
-		if (this.players == null) {
-            this.players = new HashSet<Player>();
-        }
-        return this.players;
-	}
-
-	public void setPlayers(Set<Player> players) {
-		this.players = players;
-	}
-	
-	public boolean isNew() {
-        return (this.id == null);
-    }
+  public void setPlayers(Set<Player> players) {
+    this.players = players;
+  }
+  
+  public boolean isNew() {
+    return (this.id == null);
+  }
 
 }

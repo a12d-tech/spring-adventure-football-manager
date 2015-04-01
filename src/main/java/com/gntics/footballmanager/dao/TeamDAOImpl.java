@@ -13,32 +13,32 @@ import com.gntics.footballmanager.model.Team;
 @Repository
 public class TeamDAOImpl implements TeamDAO{
 
-	@PersistenceContext
-	private EntityManager em;
+  @PersistenceContext
+  private EntityManager em;
 
-	public Team findById(int id) {
-		
-		Query q = this.em.createQuery("SELECT team FROM Team team WHERE team.id = :id");
-		q.setParameter("id", id);
-		
-		return (Team) q.getSingleResult();
-	}
+  public Team findById(int id) {
 
-	public void save(Team team) {
-		if (team.getId() == null) {
-    		this.em.persist(team);
-    	}
-    	else {
-    		this.em.merge(team);
-    	}
-	}
+    Query q = this.em.createQuery("SELECT team FROM Team team WHERE team.id = :id");
+    q.setParameter("id", id);
 
-	@SuppressWarnings("unchecked")
-	public Collection<Team> findAll() {
-		
-		Query q = this.em.createQuery("SELECT distinct team FROM Team team");
+    return (Team) q.getSingleResult();
+  }
 
-		return q.getResultList();
-	}
-	
+  public void save(Team team) {
+    if (team.getId() == null) {
+      this.em.persist(team);
+    }
+    else {
+      this.em.merge(team);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  public Collection<Team> findAll() {
+
+    Query q = this.em.createQuery("SELECT distinct team FROM Team team");
+
+    return q.getResultList();
+  }
+
 }

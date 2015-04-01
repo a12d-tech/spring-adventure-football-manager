@@ -13,32 +13,32 @@ import com.gntics.footballmanager.model.Player;
 @Repository
 public class PlayerDAOImpl implements PlayerDAO {
 
-	@PersistenceContext
-	private EntityManager em;
+  @PersistenceContext
+  private EntityManager em;
 
-	public Player findById(int id) {
-		
-		Query q = this.em.createQuery("SELECT player FROM Player player WHERE player.id = :id");
-		q.setParameter("id", id);
-		
-		return (Player) q.getSingleResult();
-	}
+  public Player findById(int id) {
 
-	public void save(Player player) {
-		if (player.getId() == null) {
-    		this.em.persist(player);
-    	}
-    	else {
-    		this.em.merge(player);
-    	}
-	}
+    Query q = this.em.createQuery("SELECT player FROM Player player WHERE player.id = :id");
+    q.setParameter("id", id);
 
-	@SuppressWarnings("unchecked")
-	public Collection<Player> findAll() {
-		
-		Query q = this.em.createQuery("SELECT distinct player FROM Player player");
+    return (Player) q.getSingleResult();
+  }
 
-		return q.getResultList();
-	}
-	
+  public void save(Player player) {
+    if (player.getId() == null) {
+      this.em.persist(player);
+    }
+    else {
+      this.em.merge(player);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  public Collection<Player> findAll() {
+
+    Query q = this.em.createQuery("SELECT distinct player FROM Player player");
+
+    return q.getResultList();
+  }
+
 }
