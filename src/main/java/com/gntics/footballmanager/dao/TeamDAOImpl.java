@@ -16,7 +16,6 @@ public class TeamDAOImpl implements TeamDAO{
 	@PersistenceContext
 	private EntityManager em;
 
-	@Override
 	public Team findById(int id) {
 		
 		Query q = this.em.createQuery("SELECT team FROM Team team WHERE team.id = :id");
@@ -25,18 +24,16 @@ public class TeamDAOImpl implements TeamDAO{
 		return (Team) q.getSingleResult();
 	}
 
-	@Override
 	public void save(Team team) {
 		if (team.getId() == null) {
-    		this.em.persist(team);     		
+    		this.em.persist(team);
     	}
     	else {
-    		this.em.merge(team);    
+    		this.em.merge(team);
     	}
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public Collection<Team> findAll() {
 		
 		Query q = this.em.createQuery("SELECT distinct team FROM Team team");
