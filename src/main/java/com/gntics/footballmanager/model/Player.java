@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -32,12 +35,24 @@ public class Player {
 	private String role;
 	
 	@Column(name = "age")
-	@NotEmpty
+	@NotNull
+	@Min(0)
+	@Max(100)
 	private Integer age;
 	
 	@ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "team_id")
     private Team team;
+
+	// Constructors
+	public Player() {} // hibernate require a default constructor
+	
+	public Player(String firstname, String lastname, Integer age, String role) {
+		this.firstname = firstname;
+		this.lastname  = lastname;
+		this.age	   = age;
+		this.role	   = role;
+	}
 
 	// Getters and Setters
 	public Integer getId() {
